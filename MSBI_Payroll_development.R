@@ -68,7 +68,38 @@ output_date_end <- as.Date("2020-02-29")
 # need to code if statements based on site input and site in data
 # (e.g. MSBI --> BIPTR)
 
-# data merge process
+payroll_data_process <- payroll_data_orig
+
+payroll_data_process$`Home FacilityOR Hospital ID` <- 630571
+payroll_data_process$`Facility Hospital Id_Worked` <- 630571
+payroll_data_process$worked_cc <- paste0(
+  payroll_data_process$WD_COFT, payroll_data_process$WD_Location,
+  payroll_data_process$WD_Department
+)
+payroll_data_process$home_cc <- paste0(
+  payroll_data_process$HD_COFT, payroll_data_process$HD_Location,
+  payroll_data_process$HD_Department  
+)
+
+payroll_data_process$`Approved Hours per Pay Period` <-
+  ceiling(payroll_data_process$`Approved Hours per Pay Period`)
+
+payroll_data_process$Hours[is.na(payroll_data_process$Hours)] <- 0
+payroll_data_process$Expense[is.na(payroll_data_process$Expense)] <- 0
+
+payroll_data_process$`Employee Name` <-
+  substr(payroll_data_process$`Employee Name`, 1, 29)
+
+# position code lookup
+# new position code checks (see GregL Rightsourcing code)
+
+# Remove Providers
+
+# Remove PACC
+
+# Provider checks (advanced)
+
+# Check dietician lineup
 
 # data summarize/aggregate
 
